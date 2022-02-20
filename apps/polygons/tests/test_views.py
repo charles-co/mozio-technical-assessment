@@ -26,7 +26,7 @@ class TestPolygonEndpoints:
         response = view(request).render()
         assert len(json.loads(response.content)["features"]) == no_of_objs
 
-    def test_provider_create(self, rf):
+    def test_polygon_create(self, rf):
 
         obj = factory.build(dict, FACTORY_CLASS=PolygonFactory)
         provider = ProviderFactory()
@@ -40,7 +40,7 @@ class TestPolygonEndpoints:
         assert response.status_code == status.HTTP_201_CREATED
 
     @pytest.mark.parametrize("field", ["price", "poly"])
-    def test_provider_patch(self, rf, field):
+    def test_polygon_patch(self, rf, field):
 
         old_polygon = PolygonFactory()
         polygon = factory.build(dict, FACTORY_CLASS=PolygonFactory)
