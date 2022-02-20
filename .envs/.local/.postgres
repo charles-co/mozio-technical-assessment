@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=mozio
+POSTGRES_USER=FqWTRaQidrexZrMCulrEPSaJvCUiFLlT
+POSTGRES_PASSWORD=FC9JfuT4LPGdSmAviYjf20257mWoTEElMdADQRy1qLCVukef8rS7Xi7gbm5kqqcM
