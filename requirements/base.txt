@@ -22,4 +22,4 @@ django_phonenumber_field==6.1.0
 phonenumbers==8.12.43
 iso639-lang==2.0.0
 iso4217==1.8.20211001
-django-filter==2.4.0
+django-filter==21.1
