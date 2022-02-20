@@ -1,54 +1,62 @@
-# Mozio Project
+# Project Setup
 
-Mozio Backend Potential hire Project 2.0
+## Table of Contents
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+- [Project Setup](#project-setup)
+  - [Table of Contents](#table-of-contents)
+  - [Local Development](#local-development)
+    - [Run project locally with docker](#run-project-locally-with-docker)
+    - [Committing changes](#committing-changes)
+  - [Production Setup](#production-setup)
 
-License: MIT
+## Local Development
 
-## Settings
+1. Clone project repo
+2. Install docker and docker-compose
+3. Add docker to sudo group to use docker without sudo
+4. Install pre-commit in your global environment
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+        pip install pre-commit
 
-## Basic Commands
+5. Install the git hook scripts
 
-### Setting Up Your Users
+        cd <project_directory>
+        pre-commit install
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+### Run project locally with docker
 
--   To create an **superuser account**, use this command:
+- Start the server
 
-        $ python manage.py createsuperuser
+        docker-compose -f local.yml up --build
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+- Run commands inside the container
 
-### Type checks
+        docker-compose -f local.yml run --rm django <command>
+    EX:
 
-Running type checks with mypy:
+        - docker-compose -f local.yml run --rm django python manage.py makemigrations # To create the migration files
+        - docker-compose -f local.yml run --rm django python manage.py migrate # To migrate the database
+        - docker-compose -f local.yml run --rm django python manage.py createsuperuser # To create super user
+        - docker-compose -f local.yml run --rm django pytest # For testing
 
-    $ mypy mozio
+- Run tests
 
-### Test coverage
+        docker-compose -f local.yml run --rm django pytest
+        docker-compose -f local.yml run --rm django pytest hio/users/tests/ # To run tests in this folder only
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+### Committing changes
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+- Whenever you commit there are some hooks that will be triggered to check for linting issues
+- When you commit pre-commit will try to fix linting issues automatically, if it fails it's up to you to fix the problems
+- If any issue is found it won't allow you to commit unless you fix it
 
-#### Running tests with pytest
+## Production Setup
 
-    $ pytest
+- ssh into the server
+- cd to project directory
+- Make sure you have all environment variables defined in ```./envs/.production/.django``` and ```./envs/.production/.postgres```
+- Make sure you can run docker without sudo
+- Make sure you have docker-compose installed
+- Run
 
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html).
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+        ./deploy.sh
