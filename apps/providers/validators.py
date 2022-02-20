@@ -17,9 +17,8 @@ def validate_lang(value):
 
 
 def validate_currency(value):
-    value = value.upper()
     try:
-        Currency(value)
+        Currency(value.upper())
     except ValueError:
         ValidationError(
             _("%(value)s is not a valid currency code"),

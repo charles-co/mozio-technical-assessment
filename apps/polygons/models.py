@@ -17,3 +17,12 @@ class Polygon(models.Model):
 
     def __str__(self) -> str:
         return f"Polygon: {self.provider.name}"
+
+    class Meta:
+
+        ordering = [
+            "price",
+        ]
+        constraints = [
+            models.UniqueConstraint(fields=["provider", "poly"], name="unique_polygon")
+        ]
