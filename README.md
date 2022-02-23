@@ -1,3 +1,4 @@
+[Live Swagger](https://ec2-54-205-239-190.compute-1.amazonaws.com/api/docs/)
 # Project Setup
 
 ## Table of Contents
